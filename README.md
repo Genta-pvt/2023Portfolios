@@ -4,7 +4,8 @@
     - バージョン
         > Python 3.11.0 (main, Oct 24 2022, 18:26:48) [MSC v.1933 64 bit (AMD64)] on win32  
     - 使用ライブラリ一覧
-        ~~~Package            Version  
+        ~~~
+        Package            Version  
         ------------------ -----------  
         beautifulsoup4     4.11.1     
         certifi            2022.9.24  
@@ -15,7 +16,8 @@
         schedule           1.1.0      
         setuptools         65.5.0     
         soupsieve          2.3.2.post1  
-        urllib3            1.26.12  ~~~
+        urllib3            1.26.12  
+        ~~~
 ## 開発環境
 - Visual Studio Code
     - バージョン
