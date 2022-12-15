@@ -4,7 +4,7 @@
 3つの作品を載せたい。  
 Pythonを使った作品を作りたい。    
 ## プログラムの説明  
-1.saitama_neko  
+1. saitama_neko  
 埼玉県のホームページで公開されている猫の譲渡情報をスクレイピングして何かしたい  
 例えば  
 - 定期的にスクレイピングして情報が更新されたらメールで通知する  
@@ -14,9 +14,14 @@ Pythonを使った作品を作りたい。
 - [飼い主さん募集中です！（譲渡用猫情報／県北部・県西部）](https://www.pref.saitama.lg.jp/b0716/joutoseineko-n.html)  
 - [飼い主さん募集中です！（譲渡用猫情報／県南部・県東部）](https://www.pref.saitama.lg.jp/b0716/joutoseineko-s.html)  
 
-2.未定  
 
-3.未定  
+
+
+
+
+1. 未定  
+
+1. 未定  
 
 ## 作品案
 - pythonでTwitterのテキストマイニング?
