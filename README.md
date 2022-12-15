@@ -66,4 +66,5 @@
 
 ### マイブーム
 - ゲーム「Vampire Survivors」
+iosバージョンをプレイしています。面白くて寝ずに遊んでます
 ![フクロウ](https://i.imgur.com/a9fX3qx.png)
