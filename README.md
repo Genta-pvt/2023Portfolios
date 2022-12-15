@@ -5,7 +5,7 @@
         > Python 3.11.0 (main, Oct 24 2022, 18:26:48) [MSC v.1933 64 bit (AMD64)] on win32
     - 使用ライブラリ一覧
         > Package            Version
-        > ------------------ -----------
+        > -----------------------------
         > beautifulsoup4     4.11.1     
         > certifi            2022.9.24  
         > charset-normalizer 2.1.1      
