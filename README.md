@@ -10,10 +10,10 @@ Pythonを使った作品を作りたい。
 - 定期的にスクレイピングして情報が更新されたらメールで通知する  
 - サイト自体が見づらいのでメール通知は見やすい構造に書き換えるとか?  
 対象のページはこちら  
-- [飼い主さん募集中です！（譲渡用猫情報／県北部・県西部）](https://www.pref.saitama.lg.jp/b0716/joutoseineko-n.html)
-- [飼い主さん募集中です！（譲渡用猫情報／県南部・県東部）](https://www.pref.saitama.lg.jp/b0716/joutoseineko-s.html)
-2.未定
-3.未定
+    - [飼い主さん募集中です！（譲渡用猫情報／県北部・県西部）](https://www.pref.saitama.lg.jp/b0716/joutoseineko-n.html)  
+    - [飼い主さん募集中です！（譲渡用猫情報／県南部・県東部）](https://www.pref.saitama.lg.jp/b0716/joutoseineko-s.html)  
+2.未定  
+3.未定  
 ## 作品案
 - pythonでTwitterのテキストマイニング?
     - あるツイートに大量についたリプライからアンチコメントみたいなものを除外して表示する  
