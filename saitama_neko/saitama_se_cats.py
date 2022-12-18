@@ -27,7 +27,7 @@ def CreateCatlist():
     # 変数定義
     # labels = {'num':'','att':'','date':'','kind':'','sex':'','color':'','age':'','other':'','contact':''}
     cats_data = []  # すべての猫(<table>)のデータ
-    each_table =[]  # <table>タグ内のデータを一時的に格納
+    each_table = []  # <table>タグ内のデータを一時的に格納
     # HTMLデータの取得
     r = requests.get('https://www.pref.saitama.lg.jp/b0716/joutoseineko-s.html')
     soup = BeautifulSoup(r.content,'html.parser')
@@ -40,7 +40,7 @@ def CreateCatlist():
             # データ行(2行目)の<td>(セル)のデータをeach_valueに代入
             each_value = tr.find_all('td')[1]
             # each_valueに<p>タグがある時(セル内改行があるとき)
-            if x:=each_value.find_all('p'):
+            if x := each_value.find_all('p'):
                 # セル内行をそれぞれstrにしてパッキング。それをeach_tableに追記(空白のセル内行を除く)
                 each_table.append([y.text for y in x if not re.fullmatch(r'[\s]+',y.text)])
             # セル内改行がないとき
@@ -53,7 +53,7 @@ def CreateCatlist():
         each_table.clear()
     # 実行時の日付 + 実行時に何匹里親募集状態の猫がいるかのstrを戻り値に
     message = datetime.date.today().strftime('%Y年%m月%d日') + ' 現在、埼玉県南部・東部地区では' + f'{len(cats_data):2}' + '匹の猫が里親を募集しています'
-    return(message)
+    return message
 
 
 def send_mail():
