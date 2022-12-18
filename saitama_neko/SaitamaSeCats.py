@@ -1,8 +1,8 @@
-# ファイル名 : saitama_se_cats
-# 機能概要 : 埼玉県の猫里親募集情報を取得して、内容をメール通知する。se_cats_schedule.pyから実行される。
+# ファイル名 : SaitamaSeCats.py
+# 機能概要 : 埼玉県の猫里親募集情報を取得して、内容をメール通知する。SeCatsSchedule.py.pyから実行される。
 
 # 関数の説明
-# 1. CreateCatlist()
+# 1. create_catlist()
 #   ・引数無し
 #   ・戻り値
 #       (str)message : 実行時の日付 + 実行時に何匹里親募集状態の猫がいるか
@@ -12,7 +12,7 @@
 #   ・引数無し
 #   ・戻り値無し
 #   ・処理概要
-#       CreateCatlist()を実行し、戻り値をメールで送信する
+#       create_catlist()を実行し、戻り値をメールで送信する
 
 # ライブラリをインポート
 from bs4 import BeautifulSoup   # HTML解析
@@ -23,7 +23,7 @@ from email.mime.text import MIMEText  # メール作成
 import smtplib  # メール送信
 
 
-def CreateCatlist():
+def create_catlist():
     # 変数定義
     # labels = {'num':'','att':'','date':'','kind':'','sex':'','color':'','age':'','other':'','contact':''}
     cats_data = []  # すべての猫(<table>)のデータ
@@ -64,7 +64,7 @@ def send_mail():
     PASS = 'odfivqnnquytcxlr'
 
     # メール作成
-    mail = MIMEText(CreateCatlist())
+    mail = MIMEText(create_catlist())
     mail['Subject'] = '本日の埼玉県南部・東部地区における猫の里親募集状況です'
     mail['From'] = FROM
     mail['To'] = TO
@@ -82,5 +82,5 @@ def send_mail():
 
 # 単体で実行したときの処理
 if __name__ == '__main__':
-    print(CreateCatlist())
+    print(create_catlist())
     # send_mail()
