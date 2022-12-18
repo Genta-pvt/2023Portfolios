@@ -11,6 +11,6 @@ run_time = '12:00'
 # スケジュール設定 毎日run_timeになったら
 schedule.every().day.at(run_time).do(saitama_se_cats.CreateCatlist)
 # スケジュールスタート
-while True :
+while True:
     schedule.run_pending()
     time.sleep(30)

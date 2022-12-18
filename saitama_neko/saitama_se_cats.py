@@ -22,6 +22,7 @@ import datetime  # 時刻
 from email.mime.text import MIMEText  # メール作成
 import smtplib  # メール送信
 
+
 def CreateCatlist():
     # 変数定義
     # labels = {'num':'','att':'','date':'','kind':'','sex':'','color':'','age':'','other':'','contact':''}
@@ -54,6 +55,7 @@ def CreateCatlist():
     message = datetime.date.today().strftime('%Y年%m月%d日') + ' 現在、埼玉県南部・東部地区では' + f'{len(cats_data):2}' + '匹の猫が里親を募集しています'
     return(message)
 
+
 def send_mail():
     # 変数初期化
     SERVER ='smtp.gmail.com'
@@ -81,4 +83,4 @@ def send_mail():
 # 単体で実行したときの処理
 if __name__ == '__main__':
     print(CreateCatlist())
-    send_mail()
+    # send_mail()
