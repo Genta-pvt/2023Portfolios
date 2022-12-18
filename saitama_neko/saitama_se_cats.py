@@ -57,7 +57,7 @@ def CreateCatlist():
 
 
 def send_mail():
-    # 変数初期化
+    # 定数初期化
     SERVER ='smtp.gmail.com'
     FROM = 'zopopop0140@gmail.com'
     TO = 'zopopop0140@gmail.com'
