@@ -59,7 +59,7 @@ def send_mail():
     SERVER ='smtp.gmail.com'
     FROM = 'zopopop0140@gmail.com'
     TO = 'zopopop0140@gmail.com'
-    PASS = 'utptcjkhdaucrgtk'
+    PASS = 'odfivqnnquytcxlr'
 
     # メール作成
     mail = MIMEText(CreateCatlist())
@@ -75,10 +75,10 @@ def send_mail():
             smtp.ehlo
         except smtplib.SMTPNotSupportedError:
             pass
-        smtp.login('zopopop0140@gmail.com','mblqqixlbsfgveid')
+        smtp.login('zopopop0140','mblqqixlbsfgveid')
         smtp.sendmail(FROM, TO, mail.as_string)
 
 # 単体で実行したときの処理
 if __name__ == '__main__':
-     print(CreateCatlist())
-    # send_mail()
+    print(CreateCatlist())
+    send_mail()
