@@ -1,4 +1,4 @@
-# ファイル名 : se_cats_schedule.py
+# ファイル名 : SeCatsSchedule.py.py
 # 機能概要 : 定期的にSaitamaSeCats.py.pyを実行する
 
 # ライブラリ、モジュールをインポート
