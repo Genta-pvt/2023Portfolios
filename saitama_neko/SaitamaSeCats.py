@@ -32,7 +32,7 @@ class SaitamaCats:
 
     # メソッド "import_page" 指定した区域(「北部・西部」or「南部・東部」)のbs4オブジェクトを作る
     # 引数"par_area":「北部・西部」or「南部・東部」のエリアを指定(デフォルトは「北部・西部」)
-    # 戻り値：引数に対応するWebページのbs4オブジェクト
+    # 戻り値：引数に対応するWebページのbs4オブジェクト.s
     def import_page(par_area = 'ne'):
         # 定数
         NORTHEAST_SET = {'northeast','NorthEast','Northeast','ne','NE','north','North','n','N'}
