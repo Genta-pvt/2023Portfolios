@@ -25,32 +25,35 @@ import smtplib  # メール送信
 
 # SaitamaCats クラス 埼玉県の猫譲渡情報ページの情報をまとめる・分析するみたいな役割
 class SaitamaCats:
-    def __init__(self):
-        self.bs4_page = ''
-        self.arg_area = ''
+    def __init__(self,area):
+        self.area = area
+        self.bs4_page = self.import_page()
 
 
     # メソッド "import_page" 指定した区域(「北部・西部」or「南部・東部」)のbs4オブジェクトを作る
-    # 引数"par_area":「北部・西部」or「南部・東部」のエリアを指定(デフォルトは「北部・西部」)
     # 戻り値：引数に対応するWebページのbs4オブジェクト
-    def import_page(self, par_area = 'ne'):
+    def import_page(self):
         # 定数
         NORTHEAST_SET = {'northeast','NorthEast','Northeast','ne','NE','north','North','n','N'}
         SOUTHWEST_SET = {'southwest','SouthWest','Southwest','sw','SW','south','South','s','S'}
         URL_NE = 'https://www.pref.saitama.lg.jp/b0716/joutoseineko-n.html'
         URL_SW = 'https://www.pref.saitama.lg.jp/b0716/joutoseineko-s.html'
 
-        # URLからbs4オブジェクトを作成(SaitamaCats.arg_areaも設定)
+        # URLからbs4オブジェクトを作成(SaitamaCats.areaも設定)
         try:
-            # 指定エリア(par_area)が北部・西部のとき
-            if par_area in NORTHEAST_SET:
-                SaitamaCats.arg_area ='ne'
+            # 指定エリア(self.area)が北部・西部のとき
+            if self.area in NORTHEAST_SET:
+                # 値を丸める
+                SaitamaCats.area ='ne'
+                # repupests実行
                 r = requests.get(URL_NE)
-            # 指定エリア(par_area)が南部・東部のとき
-            elif par_area in SOUTHWEST_SET:
-                SaitamaCats.arg_area ='sw'
+            # 指定エリア(self.area)が南部・東部のとき
+            elif self.area in SOUTHWEST_SET:
+                # 値を丸める
+                SaitamaCats.area ='sw'
+                # repupests実行
                 r = requests.get(URL_SW)
-            # 指定エリアが(par_area)が不正な値のとき(例外)
+            # 指定エリアが(self.area)が不正な値のとき(例外)
             else:
                 raise Exception('invaild par')
         # 例外処理
@@ -59,12 +62,26 @@ class SaitamaCats:
         # 例外発生しないとき requestsで取得したデータをbs4オブジェクトに変換
         else:
             soup = BeautifulSoup(r.content,'html.parser')
-            print(SaitamaCats.arg_area) # テスト用出力
+            print(SaitamaCats.area) # テスト用出力
             return soup
 
 
+    # 作成中メソッド レビュー不要です
+    def extract_data(self):
+        pass
+        main_contents = self.bs4_page.find('div',attrs={"id" : "tmp_contents" })
+        # for table in main_contents
 
-# 未使用クラスです。
+        cat_infs = main_contents.find('table')
+        print(main_contents.find('table'))
+        print(main_contents.find('table').previous_sibling.previous_sibling)
+        # tables = main_contents.find_all('tbody')
+        # neko_ippikime = self.bs4_page.
+
+
+
+
+# 未使用クラス レビュー不要
 class ImportCatData:
     def create_catlist():
         # 変数定義
@@ -97,7 +114,7 @@ class ImportCatData:
         message = datetime.date.today().strftime('%Y年%m月%d日') + ' 現在、埼玉県南部・東部地区では' + f'{len(cats_data):2}' + '匹の猫が里親を募集しています'
         return message
 
-# 未使用関数
+# 未使用関数 レビュー不要
 def send_mail():
     # 定数初期化
     SERVER ='smtp.gmail.com'
@@ -123,20 +140,9 @@ def send_mail():
         smtp.sendmail(FROM, TO, mail.as_string)
 
 # 単体で実行したときの処理
-# 福井君助けなくてもいいです(解決しました)
 if __name__ == '__main__':
-    # クラスから直接メソッドたたいた時はうまくいかない(import_pageが静的メソッドではないから?)
-    print('クラスから直接(ne,sw,other)')
-    SaitamaCats.import_page('ne')
-    SaitamaCats.import_page('sw')
-    SaitamaCats.import_page('hoeg')
-
-    # インスタンスからメソッドたたけるようになりました(メソッドの作り方が間違っていた)
-    print('インスタンスから(引数指定なし,(デフォルト指定しているので出力はneになる想定))')
-    x = SaitamaCats()
-    x.import_page() #なぜか例外が発生
-    print('インスタンスから(ne,sw,other)')
-    # メソッドの引数の数が多すぎて不正と言われてしまう。1個しか指定していないのに2個って言われれる…
-    x.import_page('ne')
-    x.import_page('sw')
-    x.import_page('hoge')
+    pass
+    hoku_tou = SaitamaCats('ne')
+    nan_sei = SaitamaCats('sw')
+    urawa = SaitamaCats('urawa')
+    # hoku_tou.extract_data()
