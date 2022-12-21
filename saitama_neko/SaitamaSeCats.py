@@ -32,8 +32,8 @@ class SaitamaCats:
 
     # メソッド "import_page" 指定した区域(「北部・西部」or「南部・東部」)のbs4オブジェクトを作る
     # 引数"par_area":「北部・西部」or「南部・東部」のエリアを指定(デフォルトは「北部・西部」)
-    # 戻り値：引数に対応するWebページのbs4オブジェクト.s
-    def import_page(par_area = 'ne'):
+    # 戻り値：引数に対応するWebページのbs4オブジェクト
+    def import_page(self, par_area = 'ne'):
         # 定数
         NORTHEAST_SET = {'northeast','NorthEast','Northeast','ne','NE','north','North','n','N'}
         SOUTHWEST_SET = {'southwest','SouthWest','Southwest','sw','SW','south','South','s','S'}
@@ -123,15 +123,15 @@ def send_mail():
         smtp.sendmail(FROM, TO, mail.as_string)
 
 # 単体で実行したときの処理
-# 福井君助けてください↓
+# 福井君助けなくてもいいです(解決しました)
 if __name__ == '__main__':
-    # クラスから直接メソッドたたいた時は成功する↓
+    # クラスから直接メソッドたたいた時はうまくいかない(import_pageが静的メソッドではないから?)
     print('クラスから直接(ne,sw,other)')
     SaitamaCats.import_page('ne')
     SaitamaCats.import_page('sw')
     SaitamaCats.import_page('hoeg')
 
-    # インスタンスからメソッドたたくと不明な引数が勝手に指定されるみたい
+    # インスタンスからメソッドたたけるようになりました(メソッドの作り方が間違っていた)
     print('インスタンスから(引数指定なし,(デフォルト指定しているので出力はneになる想定))')
     x = SaitamaCats()
     x.import_page() #なぜか例外が発生
