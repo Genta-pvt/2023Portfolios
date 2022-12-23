@@ -69,12 +69,20 @@ class SaitamaCats:
     # 作成中メソッド レビュー不要です
     def extract_data(self):
         pass
+        # main_contents : 
         main_contents = self.bs4_page.find('div',attrs={"id" : "tmp_contents" })
         # for table in main_contents
 
-        cat_infs = main_contents.find('table')
-        print(main_contents.find('table'))
-        print(main_contents.find('table').previous_sibling.previous_sibling)
+        table_pointer = main_contents.find('table')
+        table_desc1 = table_pointer.previous_sibling.previous_sibling
+        table1 = table_pointer
+
+        table_pointer = table_pointer.find_next_sibling('table')
+        table_desc2 = table_pointer.previous_sibling.previous_sibling
+        table2 = table_pointer
+
+        print(table1)
+        print(table2)
         # tables = main_contents.find_all('tbody')
         # neko_ippikime = self.bs4_page.
 
@@ -142,7 +150,7 @@ def send_mail():
 # 単体で実行したときの処理
 if __name__ == '__main__':
     pass
-    hoku_tou = SaitamaCats('ne')
-    nan_sei = SaitamaCats('sw')
-    urawa = SaitamaCats('urawa')
+    hoku_tou = SaitamaCats('ne').extract_data()
+    # nan_sei = SaitamaCats('sw')
+    # urawa = SaitamaCats('urawa')
     # hoku_tou.extract_data()
