@@ -34,8 +34,8 @@ class SaitamaCats:
     # 戻り値：引数に対応するWebページのbs4オブジェクト
     def import_page(self):
         # 定数
-        NORTHEAST_SET = {'northeast','NorthEast','Northeast','ne','NE','north','North','n','N'}
-        SOUTHWEST_SET = {'southwest','SouthWest','Southwest','sw','SW','south','South','s','S'}
+        NORTHEAST_SET = {'northeast', 'NorthEast', 'Northeast', 'ne', 'NE', 'north', 'North', 'n', 'N'}
+        SOUTHWEST_SET = {'southwest', 'SouthWest', 'Southwest', 'sw', 'SW', 'south', 'South', 's', 'S'}
         URL_NE = 'https://www.pref.saitama.lg.jp/b0716/joutoseineko-n.html'
         URL_SW = 'https://www.pref.saitama.lg.jp/b0716/joutoseineko-s.html'
 
