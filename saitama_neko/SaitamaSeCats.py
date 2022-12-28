@@ -44,13 +44,13 @@ class SaitamaCats:
             # 指定エリア(self.area)が北部・西部のとき
             if self.area in NORTHEAST_SET:
                 # 値を丸める
-                SaitamaCats.area ='ne'
+                SaitamaCats.area = 'ne'
                 # repupests実行
                 r = requests.get(URL_NE)
             # 指定エリア(self.area)が南部・東部のとき
             elif self.area in SOUTHWEST_SET:
                 # 値を丸める
-                SaitamaCats.area ='sw'
+                SaitamaCats.area = 'sw'
                 # repupests実行
                 r = requests.get(URL_SW)
             # 指定エリアが(self.area)が不正な値のとき(例外)
