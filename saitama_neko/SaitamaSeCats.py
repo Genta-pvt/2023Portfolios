@@ -23,6 +23,13 @@ from email.mime.text import MIMEText  # メール作成
 import smtplib  # メール送信
 
 
+
+# 例外クラス AreaCodeError SaitamaCatsの引数が不正な時に呼び出す
+class AreaCodeError(Exception):
+    pass
+
+
+
 # SaitamaCats クラス 埼玉県の猫譲渡情報ページの情報をまとめる・分析するみたいな役割
 class SaitamaCats:
     def __init__(self,area):
@@ -55,10 +62,10 @@ class SaitamaCats:
                 r = requests.get(URL_SW)
             # 指定エリアが(self.area)が不正な値のとき(例外)
             else:
-                raise Exception('invaild par')
+                raise AreaCodeError('Please enter a valid value. Example : ne, sw.')
         # 例外処理
-        except Exception:
-            print('plz input "ne" or "sw".')
+        except AreaCodeError as e :
+            print(e)
         # 例外発生しないとき requestsで取得したデータをbs4オブジェクトに変換
         else:
             soup = BeautifulSoup(r.content,'html.parser')
@@ -150,7 +157,7 @@ def send_mail():
 # 単体で実行したときの処理
 if __name__ == '__main__':
     pass
-    hoku_tou = SaitamaCats('ne').extract_data()
+    # hoku_tou = SaitamaCats('ne').extract_data()
     # nan_sei = SaitamaCats('sw')
     # urawa = SaitamaCats('urawa')
     # hoku_tou.extract_data()
