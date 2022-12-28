@@ -35,34 +35,39 @@ class SaitamaCats:
     def __init__(self,area):
         self.area = area
         self.bs4_page = self.import_page()
+        # self.cats_arr = self.extract_data_nw()
+        self.cat_dict_tmp = \
+            {'譲渡状況': '', '管理番号': '', '掲載開始日': '', '種類': '', \
+            '性別': '', '毛色': '', '推定年齢': '', 'その他の情報': '', \
+            '問合せ先': '', '画像': ''}
 
 
     # メソッド "import_page" 指定した区域(「北部・西部」or「南部・東部」)のbs4オブジェクトを作る
     # 戻り値：引数に対応するWebページのbs4オブジェクト
     def import_page(self):
         # 定数
-        NORTHEAST_SET = {'northeast', 'NorthEast', 'Northeast', 'ne', 'NE', 'north', 'North', 'n', 'N'}
-        SOUTHWEST_SET = {'southwest', 'SouthWest', 'Southwest', 'sw', 'SW', 'south', 'South', 's', 'S'}
-        URL_NE = 'https://www.pref.saitama.lg.jp/b0716/joutoseineko-n.html'
-        URL_SW = 'https://www.pref.saitama.lg.jp/b0716/joutoseineko-s.html'
+        NORTHWEST_SET = {'northwest', 'NorthWest', 'Northwest', 'nw', 'NW', 'north', 'North', 'n', 'N'}
+        SOUTHEAST_SET = {'southeast', 'SouthEast', 'Southeast', 'se', 'SE', 'south', 'South', 's', 'S'}
+        URL_NW = 'https://www.pref.saitama.lg.jp/b0716/joutoseineko-n.html'
+        URL_SE= 'https://www.pref.saitama.lg.jp/b0716/joutoseineko-s.html'
 
         # URLからbs4オブジェクトを作成(SaitamaCats.areaも設定)
         try:
             # 指定エリア(self.area)が北部・西部のとき
-            if self.area in NORTHEAST_SET:
+            if self.area in NORTHWEST_SET:
                 # 値を丸める
-                SaitamaCats.area = 'ne'
+                SaitamaCats.area = 'nw'
                 # repupests実行
-                r = requests.get(URL_NE)
+                r = requests.get(URL_NW)
             # 指定エリア(self.area)が南部・東部のとき
-            elif self.area in SOUTHWEST_SET:
+            elif self.area in SOUTHEAST_SET:
                 # 値を丸める
-                SaitamaCats.area = 'sw'
+                SaitamaCats.area = 'se'
                 # repupests実行
-                r = requests.get(URL_SW)
+                r = requests.get(URL_SE)
             # 指定エリアが(self.area)が不正な値のとき(例外)
             else:
-                raise AreaCodeError('Please enter a valid value. Example : ne, sw.')
+                raise AreaCodeError('Please enter a valid value. Example : nw, se.')
         # 例外処理
         except AreaCodeError as e :
             print(e)
@@ -73,32 +78,36 @@ class SaitamaCats:
             return soup
 
 
-    # 作成中メソッド レビュー不要です
-    def extract_data(self):
-        pass
-        # main_contents : 
+    # メソッド "extract_data" データ属性"bs4_page"を解析して各猫の情報をまとめた配列を作る(今はnw限定)
+    # 戻り値 : [{見出し1: 値1, 見出し2: 値2, ...}, {}, ...]
+    def extract_data_nw(self):
+        # テーブルを登録する配列(戻り値) 
+        arr = []
+        # インポートしたデータからページの主となる部分を抽出
         main_contents = self.bs4_page.find('div',attrs={"id" : "tmp_contents" })
-        # for table in main_contents
-
-        table_pointer = main_contents.find('table')
-        table_desc1 = table_pointer.previous_sibling.previous_sibling
-        table1 = table_pointer
-
-        table_pointer = table_pointer.find_next_sibling('table')
-        table_desc2 = table_pointer.previous_sibling.previous_sibling
-        table2 = table_pointer
-
-        print(table1)
-        print(table2)
-        # tables = main_contents.find_all('tbody')
-        # neko_ippikime = self.bs4_page.
+        # 各テーブルの情報を登録。(すべてのテーブルで繰り返し)
+        for table in main_contents.find_all('table'):
+            # テーブルの内容を登録する辞書を定義
+            table_dict = {}
+            # 譲渡状況を登録
+            table_dict['譲渡状況'] = table.previous_sibling.previous_sibling.string
+            # 各行の見出しと値をそれぞれ登録（すべての行で繰り返し)
+            for tr in table.find_all('tr'):
+                # 見出しのテキスト
+                key = tr.contents[1].get_text(strip = True)
+                # 値のテキスト
+                value = tr.contents[3].contents[1].get_text(strip = True)
+                # 見出し: 値で登録
+                table_dict[key] = value
+            # テーブル → 辞書としたものを配列に登録
+            arr.append(table_dict)
+        # 戻り値
+        return arr
 
 
 
 # 単体で実行したときの処理
 if __name__ == '__main__':
     pass
-    # hoku_tou = SaitamaCats('ne').extract_data()
-    # nan_sei = SaitamaCats('sw')
-    # urawa = SaitamaCats('urawa')
-    # hoku_tou.extract_data()
+    hoku_sei = SaitamaCats('nw').extract_data_nw()
+    print(hoku_sei)
