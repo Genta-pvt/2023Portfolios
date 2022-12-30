@@ -2,3 +2,11 @@
 /saitama_neko/状況.txt
 # ゴミ関数、クラス置き場
 /saitama_neko/Trash.py
+# 秘密
+/saitama_neko/Credentials
+# ゴミ置き場
+/saitama_neko/Trash
+# pycache
+/saitama_neko/__pycache__
+# 認証情報登録
+/saitama_neko/TwCredentials.py

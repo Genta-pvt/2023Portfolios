@@ -19,8 +19,6 @@ from bs4 import BeautifulSoup   # HTML解析
 import requests  # HTML取得
 import re  # 正規表現
 import datetime  # 時刻
-from email.mime.text import MIMEText  # メール作成
-import smtplib  # メール送信
 
 
 
@@ -35,12 +33,11 @@ class SaitamaCats:
     def __init__(self,area):
         self.area = area
         self.bs4_page = self.import_page()
-        # self.cats_arr = self.extract_data_nw()
-        self.cat_dict_tmp = \
-            {'譲渡状況': '', '管理番号': '', '掲載開始日': '', '種類': '', \
-            '性別': '', '毛色': '', '推定年齢': '', 'その他の情報': '', \
-            '問合せ先': '', '画像': ''}
-
+        self.cats_arr = self.extract_data()
+        self.cats_count_all = 0
+        self.cats_count_wanted = 0
+        self.cats_count_interview = 0
+        self.cats_count_decided = 0
 
     # メソッド "import_page" 指定した区域(「北部・西部」or「南部・東部」)のbs4オブジェクトを作る
     # 戻り値：引数に対応するWebページのbs4オブジェクト
@@ -56,15 +53,19 @@ class SaitamaCats:
             # 指定エリア(self.area)が北部・西部のとき
             if self.area in NORTHWEST_SET:
                 # 値を丸める
-                SaitamaCats.area = 'nw'
+                self.area = 'nw'
+                # url設定
+                self.url = URL_NW
                 # repupests実行
-                r = requests.get(URL_NW)
+                r = requests.get(self.url)
             # 指定エリア(self.area)が南部・東部のとき
             elif self.area in SOUTHEAST_SET:
                 # 値を丸める
-                SaitamaCats.area = 'se'
+                self.area = 'se'
+                # url設定
+                self.url = URL_SE
                 # repupests実行
-                r = requests.get(URL_SE)
+                r = requests.get(self.url)
             # 指定エリアが(self.area)が不正な値のとき(例外)
             else:
                 raise AreaCodeError('Please enter a valid value. Example : nw, se.')
@@ -74,13 +75,13 @@ class SaitamaCats:
         # 例外発生しないとき requestsで取得したデータをbs4オブジェクトに変換
         else:
             soup = BeautifulSoup(r.content,'html.parser')
-            print(SaitamaCats.area) # テスト用出力
+            print(self.area) # テスト用出力
             return soup
 
 
     # メソッド "extract_data" データ属性"bs4_page"を解析して各猫の情報をまとめた配列を作る(今はnw限定)
     # 戻り値 : [{見出し1: 値1, 見出し2: 値2, ...}, {}, ...]
-    def extract_data_nw(self):
+    def extract_data(self):
         # テーブルを登録する配列(戻り値) 
         arr = []
         # インポートしたデータからページの主となる部分を抽出
@@ -89,25 +90,95 @@ class SaitamaCats:
         for table in main_contents.find_all('table'):
             # テーブルの内容を登録する辞書を定義
             table_dict = {}
-            # 譲渡状況を登録
-            table_dict['譲渡状況'] = table.previous_sibling.previous_sibling.string
+            # 譲渡状況を登録(nw限定) 
+            if self.area == 'nw':
+                table_dict['譲渡状況'] = table.previous_sibling.previous_sibling.get_text(strip = True)
             # 各行の見出しと値をそれぞれ登録（すべての行で繰り返し)
             for tr in table.find_all('tr'):
-                # 見出しのテキスト
+                # 見出しのテキスト(行内1列目セルのテキスト)
                 key = tr.contents[1].get_text(strip = True)
-                # 値のテキスト
-                value = tr.contents[3].contents[1].get_text(strip = True)
+                # 値のテキスト(行内2列目セルのテキスト)
+                # (se限定)"管理番号"行の時(セル内に"管理番号", "譲渡状況"が含まれている)
+                if self.area == 'se' and key == '管理番号':
+                    # セル内の文字列全体
+                    whole_td = tr.contents[3].get_text(strip = True)
+                    # "管理番号"のみ抽出し値とする
+                    value = re.search(r'(.\d+-.\d+)',whole_td).group(1)
+                    # "譲渡状況"を抽出、登録
+                    table_dict['譲渡状況'] = whole_td.replace(value,'')
+                # 値のテキスト(行内2列目セルのテキスト)
+                else:
+                    value = tr.contents[3].get_text(strip = True)
                 # 見出し: 値で登録
-                table_dict[key] = value
+                table_dict[key] = value                
             # テーブル → 辞書としたものを配列に登録
             arr.append(table_dict)
         # 戻り値
         return arr
 
 
+    # 猫数え
+    def count_cats(self,filter = 'all'):
+
+
+        def count(value):
+            i = 0
+            for elem in self.cats_arr:
+                if elem.get('譲渡状況') == value:
+                    i += 1
+            return i
+
+
+        if filter == 'all':
+            self.cats_count_all = len(self.cats_arr)
+            return self.cats_count_all
+        elif filter == 'wanted':
+            self.cats_count_wanted = count('')
+            return self.cats_count_wanted
+        elif filter == 'interview':
+            self.cats_count_interview = count('お見合い中です')
+            return self.cats_count_interview
+        elif filter == 'decided':
+            self.cats_count_decided = count('飼い主さんが決まりました！')
+            return self.cats_count_decided
+
+
+
+# 文章作成クラス
+class CreateSentens(SaitamaCats):
+    def __init__(self,area):
+        super().__init__(area)
+        self.SENT_1 = '現在、埼玉県の{}地区では{}匹の猫が飼い主を募集しています'
+        self.SENT_2 = '【今日の埼玉県{}地区の譲渡用猫情報】\n募集中          : {} 匹\nお見合い中      : {} 匹\n飼い主さん決定  : {} 匹\n{}'
+        self.area_jp = self.transrate()
+    
+    
+    def transrate(self):
+        if self.area == 'nw':
+            jp = '北部・西部'
+        elif self.area == 'se':
+            jp = '南部・東部'
+        return jp
+
+    
+    # 文章作成1
+    def sentens_1(self):
+        super().count_cats()
+        sent = self.SENT_1.format(self.area_jp,self.cats_count_all)
+        return sent
+
+
+    # 文章作成2
+    def sentens_2(self):
+        for filter in ['wanted', 'interview', 'decided']:
+            super().count_cats(filter)
+        sent = self.SENT_2.format(self.area_jp,self.cats_count_wanted,self.cats_count_interview,self.cats_count_decided,self.url)
+        return sent
+
 
 # 単体で実行したときの処理
 if __name__ == '__main__':
+    # print(CreateSentens('n').sentens_1())
+    # print(SaitamaCats('n').url)
+    print (CreateSentens('n').sentens_2())
     pass
-    hoku_sei = SaitamaCats('nw').extract_data_nw()
-    print(hoku_sei)
