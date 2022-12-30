@@ -1,5 +1,6 @@
 import tweepy
 import SaitamaSeCats
+import CreateSentens
 import TwCredentials
 
 
@@ -20,5 +21,5 @@ class OperationTweetBot():
 
 # 単体で実行したときの処理
 if __name__ == '__main__':
-    OperationTweetBot().tweet(SaitamaSeCats.CreateSentens('n').sentens_2())
-    OperationTweetBot().tweet(SaitamaSeCats.CreateSentens('s').sentens_2())
+    OperationTweetBot().tweet(CreateSentens.CreateSentens('n').sentens_2())
+    OperationTweetBot().tweet(CreateSentens.CreateSentens('s').sentens_2())
