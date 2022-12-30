@@ -8,3 +8,5 @@
 /saitama_neko/Trash
 # pycache
 /saitama_neko/__pycache__
+# 認証情報登録
+/saitama_neko/TwCredentials.py
