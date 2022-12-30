@@ -14,7 +14,7 @@ def day_task():
     pass
 
 # 実行時刻
-run_time = '22:11'
+run_time = '09:00'
 # スケジュール設定 毎日run_timeになったら
 # schedule.every().day.at(run_time).do(day_task())
 schedule.every().day.at(run_time).do(day_task)
