@@ -151,5 +151,5 @@ class SaitamaCats:
 if __name__ == '__main__':
     # print(CreateSentens('n').sentens_1())
     # print(SaitamaCats('n').url)
-    print (CreateSentens('n').sentens_2())
+    # print (CreateSentens('n').sentens_2())
     pass
