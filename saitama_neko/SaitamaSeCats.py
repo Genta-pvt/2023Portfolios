@@ -23,42 +23,54 @@ from email.mime.text import MIMEText  # メール作成
 import smtplib  # メール送信
 
 
+
+# 例外クラス AreaCodeError SaitamaCatsの引数が不正な時に呼び出す
+class AreaCodeError(Exception):
+    pass
+
+
+
 # SaitamaCats クラス 埼玉県の猫譲渡情報ページの情報をまとめる・分析するみたいな役割
 class SaitamaCats:
     def __init__(self,area):
         self.area = area
         self.bs4_page = self.import_page()
+        # self.cats_arr = self.extract_data_nw()
+        self.cat_dict_tmp = \
+            {'譲渡状況': '', '管理番号': '', '掲載開始日': '', '種類': '', \
+            '性別': '', '毛色': '', '推定年齢': '', 'その他の情報': '', \
+            '問合せ先': '', '画像': ''}
 
 
     # メソッド "import_page" 指定した区域(「北部・西部」or「南部・東部」)のbs4オブジェクトを作る
     # 戻り値：引数に対応するWebページのbs4オブジェクト
     def import_page(self):
         # 定数
-        NORTHEAST_SET = {'northeast','NorthEast','Northeast','ne','NE','north','North','n','N'}
-        SOUTHWEST_SET = {'southwest','SouthWest','Southwest','sw','SW','south','South','s','S'}
-        URL_NE = 'https://www.pref.saitama.lg.jp/b0716/joutoseineko-n.html'
-        URL_SW = 'https://www.pref.saitama.lg.jp/b0716/joutoseineko-s.html'
+        NORTHWEST_SET = {'northwest', 'NorthWest', 'Northwest', 'nw', 'NW', 'north', 'North', 'n', 'N'}
+        SOUTHEAST_SET = {'southeast', 'SouthEast', 'Southeast', 'se', 'SE', 'south', 'South', 's', 'S'}
+        URL_NW = 'https://www.pref.saitama.lg.jp/b0716/joutoseineko-n.html'
+        URL_SE= 'https://www.pref.saitama.lg.jp/b0716/joutoseineko-s.html'
 
         # URLからbs4オブジェクトを作成(SaitamaCats.areaも設定)
         try:
             # 指定エリア(self.area)が北部・西部のとき
-            if self.area in NORTHEAST_SET:
+            if self.area in NORTHWEST_SET:
                 # 値を丸める
-                SaitamaCats.area ='ne'
+                SaitamaCats.area = 'nw'
                 # repupests実行
-                r = requests.get(URL_NE)
+                r = requests.get(URL_NW)
             # 指定エリア(self.area)が南部・東部のとき
-            elif self.area in SOUTHWEST_SET:
+            elif self.area in SOUTHEAST_SET:
                 # 値を丸める
-                SaitamaCats.area ='sw'
+                SaitamaCats.area = 'se'
                 # repupests実行
-                r = requests.get(URL_SW)
+                r = requests.get(URL_SE)
             # 指定エリアが(self.area)が不正な値のとき(例外)
             else:
-                raise Exception('invaild par')
+                raise AreaCodeError('Please enter a valid value. Example : nw, se.')
         # 例外処理
-        except Exception:
-            print('plz input "ne" or "sw".')
+        except AreaCodeError as e :
+            print(e)
         # 例外発生しないとき requestsで取得したデータをbs4オブジェクトに変換
         else:
             soup = BeautifulSoup(r.content,'html.parser')
@@ -66,83 +78,36 @@ class SaitamaCats:
             return soup
 
 
-    # 作成中メソッド レビュー不要です
-    def extract_data(self):
-        pass
+    # メソッド "extract_data" データ属性"bs4_page"を解析して各猫の情報をまとめた配列を作る(今はnw限定)
+    # 戻り値 : [{見出し1: 値1, 見出し2: 値2, ...}, {}, ...]
+    def extract_data_nw(self):
+        # テーブルを登録する配列(戻り値) 
+        arr = []
+        # インポートしたデータからページの主となる部分を抽出
         main_contents = self.bs4_page.find('div',attrs={"id" : "tmp_contents" })
-        # for table in main_contents
+        # 各テーブルの情報を登録。(すべてのテーブルで繰り返し)
+        for table in main_contents.find_all('table'):
+            # テーブルの内容を登録する辞書を定義
+            table_dict = {}
+            # 譲渡状況を登録
+            table_dict['譲渡状況'] = table.previous_sibling.previous_sibling.string
+            # 各行の見出しと値をそれぞれ登録（すべての行で繰り返し)
+            for tr in table.find_all('tr'):
+                # 見出しのテキスト
+                key = tr.contents[1].get_text(strip = True)
+                # 値のテキスト
+                value = tr.contents[3].contents[1].get_text(strip = True)
+                # 見出し: 値で登録
+                table_dict[key] = value
+            # テーブル → 辞書としたものを配列に登録
+            arr.append(table_dict)
+        # 戻り値
+        return arr
 
-        cat_infs = main_contents.find('table')
-        print(main_contents.find('table'))
-        print(main_contents.find('table').previous_sibling.previous_sibling)
-        # tables = main_contents.find_all('tbody')
-        # neko_ippikime = self.bs4_page.
 
-
-
-
-# 未使用クラス レビュー不要
-class ImportCatData:
-    def create_catlist():
-        # 変数定義
-        cats_data = []  # すべての猫(<table>)のデータ
-        each_table = []  # <table>タグ内のデータを一時的に格納
-        # HTMLデータの取得
-        r = requests.get('https://www.pref.saitama.lg.jp/b0716/joutoseineko-s.html')
-        soup = BeautifulSoup(r.content,'html.parser')
-
-        # 猫のデータを配列に格納
-        # すべての<table>(猫情報)で繰り返し
-        for t in soup.find_all('table'):
-            # すべての<tr>(列)で繰り返し
-            for tr in t.find_all('tr'):
-                # データ行(2行目)の<td>(セル)のデータをeach_valueに代入
-                each_value = tr.find_all('td')[1]
-                # each_valueに<p>タグがある時(セル内改行があるとき)
-                if x := each_value.find_all('p'):
-                    # セル内行をそれぞれstrにしてパッキング。それをeach_tableに追記(空白のセル内行を除く)
-                    each_table.append([y.text for y in x if not re.fullmatch(r'[\s]+',y.text)])
-                # セル内改行がないとき
-                else:
-                    # テキストをeach_tableに追記
-                    each_table.append(each_value.text.replace('\n',''))
-            # cats_dataにeach_tableの内容を追記
-            cats_data.append(each_table[:])
-            # each_tableを初期化
-            each_table.clear()
-        # 実行時の日付 + 実行時に何匹里親募集状態の猫がいるかのstrを戻り値に
-        message = datetime.date.today().strftime('%Y年%m月%d日') + ' 現在、埼玉県南部・東部地区では' + f'{len(cats_data):2}' + '匹の猫が里親を募集しています'
-        return message
-
-# 未使用関数 レビュー不要
-def send_mail():
-    # 定数初期化
-    SERVER ='smtp.gmail.com'
-    FROM = 'zopopop0140@gmail.com'
-    TO = 'zopopop0140@gmail.com'
-    PASS = 'odfivqnnquytcxlr'
-
-    # メール作成
-    mail = MIMEText('hoge')
-    mail['Subject'] = '本日の埼玉県南部・東部地区における猫の里親募集状況です'
-    mail['From'] = FROM
-    mail['To'] = TO
-
-    # メール送信
-    with smtplib.SMTP(SERVER,587) as smtp:
-        smtp.ehlo()
-        try:
-            smtp.starttls()
-            smtp.ehlo
-        except smtplib.SMTPNotSupportedError:
-            pass
-        smtp.login('zopopop0140','mblqqixlbsfgveid')
-        smtp.sendmail(FROM, TO, mail.as_string)
 
 # 単体で実行したときの処理
 if __name__ == '__main__':
     pass
-    hoku_tou = SaitamaCats('ne')
-    nan_sei = SaitamaCats('sw')
-    urawa = SaitamaCats('urawa')
-    # hoku_tou.extract_data()
+    hoku_sei = SaitamaCats('nw').extract_data_nw()
+    print(hoku_sei)
