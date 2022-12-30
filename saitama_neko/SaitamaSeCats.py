@@ -39,8 +39,6 @@ class SaitamaCats:
         self.cats_count_interview = 0
         self.cats_count_decided = 0
 
-
-
     # メソッド "import_page" 指定した区域(「北部・西部」or「南部・東部」)のbs4オブジェクトを作る
     # 戻り値：引数に対応するWebページのbs4オブジェクト
     def import_page(self):
@@ -56,14 +54,18 @@ class SaitamaCats:
             if self.area in NORTHWEST_SET:
                 # 値を丸める
                 self.area = 'nw'
+                # url設定
+                self.url = URL_NW
                 # repupests実行
-                r = requests.get(URL_NW)
+                r = requests.get(self.url)
             # 指定エリア(self.area)が南部・東部のとき
             elif self.area in SOUTHEAST_SET:
                 # 値を丸める
                 self.area = 'se'
+                # url設定
+                self.url = URL_SE
                 # repupests実行
-                r = requests.get(URL_SE)
+                r = requests.get(self.url)
             # 指定エリアが(self.area)が不正な値のとき(例外)
             else:
                 raise AreaCodeError('Please enter a valid value. Example : nw, se.')
@@ -117,26 +119,28 @@ class SaitamaCats:
 
     # 猫数え
     def count_cats(self,filter = 'all'):
-        i = 0
+
+
+        def count(value):
+            i = 0
+            for elem in self.cats_arr:
+                if elem.get('譲渡状況') == value:
+                    i += 1
+            return i
+
+
         if filter == 'all':
             self.cats_count_all = len(self.cats_arr)
             return self.cats_count_all
         elif filter == 'wanted':
-            for elem in self.cats_arr:
-                if elem.get('譲渡状況') == '':
-                    i += 1
-            self.cats_count_wanted = i
+            self.cats_count_wanted = count('')
             return self.cats_count_wanted
         elif filter == 'interview':
-            for elem in self.cats_arr:
-                if elem.get('譲渡状況') == 'お見合い中です':
-                    i += 1
-            return i
+            self.cats_count_interview = count('お見合い中です')
+            return self.cats_count_interview
         elif filter == 'decided':
-            for elem in self.cats_arr:
-                if elem.get('譲渡状況') == '飼い主さんが決まりました！':
-                    i += 1
-            return i
+            self.cats_count_decided = count('飼い主さんが決まりました！')
+            return self.cats_count_decided
 
 
 
@@ -144,34 +148,37 @@ class SaitamaCats:
 class CreateSentens(SaitamaCats):
     def __init__(self,area):
         super().__init__(area)
-        self.SENT_1 = '現在、埼玉県の{.area_jp}地区では{.}匹の猫が飼い主を募集しています'
-        self.SENT_2 = '【今日の埼玉県<1>の譲渡用猫情報】\n募集中          : <2> 匹\nお見合い中      : <3> 匹\n飼い主さん決定  : <4> 匹\n<5>'
+        self.SENT_1 = '現在、埼玉県の{}地区では{}匹の猫が飼い主を募集しています'
+        self.SENT_2 = '【今日の埼玉県{}地区の譲渡用猫情報】\n募集中          : {} 匹\nお見合い中      : {} 匹\n飼い主さん決定  : {} 匹\n{}'
         self.area_jp = self.transrate()
     
     
     def transrate(self):
-        if SaitamaCats.area == 'nw':
+        if self.area == 'nw':
             jp = '北部・西部'
-        elif SaitamaCats.area == 'se':
+        elif self.area == 'se':
             jp = '南部・東部'
         return jp
 
     
     # 文章作成1
-    def create_1(self):
-        # print(super().count_cats())
-        sent = self.SENT_1.replace('<1>',self.area_jp).replace('<2>',str(super().count_cats()))
+    def sentens_1(self):
+        super().count_cats()
+        sent = self.SENT_1.format(self.area_jp,self.cats_count_all)
         return sent
 
 
     # 文章作成2
-    def create_2(self):
-        sent = self.SENT_2.replace('<1>',self.area_jp)
+    def sentens_2(self):
+        for filter in ['wanted', 'interview', 'decided']:
+            super().count_cats(filter)
+        sent = self.SENT_2.format(self.area_jp,self.cats_count_wanted,self.cats_count_interview,self.cats_count_decided,self.url)
         return sent
 
 
 # 単体で実行したときの処理
 if __name__ == '__main__':
-    # print(CreateSentens('n').create_1())
-    print (SaitamaCats('s').count_cats('interview'))
+    # print(CreateSentens('n').sentens_1())
+    # print(SaitamaCats('n').url)
+    print (CreateSentens('n').sentens_2())
     pass

@@ -6,3 +6,5 @@
 /saitama_neko/Twitter api keys.txt
 # ゴミ置き場
 /saitama_neko/Trash
+# pycache
+/saitama_neko/__pycache__
