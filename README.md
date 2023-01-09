@@ -80,7 +80,6 @@ Twitterアカウント：@SaitamaCatInf 「埼玉県譲渡用猫情報Bot」http
 ### 得意なこと  
 - スキー  
 - 料理  
-- シャンパンコール  
 
 ### マイブーム
 - ゲーム「Vampire Survivors」  
