@@ -1,5 +1,6 @@
 import tweepy
 import SaitamaSeCats
+import CreateSentens
 import TwCredentials
 
 
@@ -14,11 +15,11 @@ class OperationTweetBot():
                                     access_token_secret = self.credentials.access_secret)
 
     
-    def tweet(self,value):
-        print(value)
-        self.client.create_tweet(text = value)
+def tweet(value):
+    # OperationTweetBot.client.create_tweet(text = value)
+    sci_client = OperationTweetBot()
+    sci_client.client.create_tweet(text = value)
 
 # 単体で実行したときの処理
 if __name__ == '__main__':
-    OperationTweetBot().tweet(SaitamaSeCats.CreateSentens('n').sentens_2())
-    OperationTweetBot().tweet(SaitamaSeCats.CreateSentens('s').sentens_2())
+    tweet('hoge')

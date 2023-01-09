@@ -4,12 +4,20 @@
 # ライブラリ、モジュールをインポート
 import schedule  # スケジュール
 import time  # 時刻
-import SaitamaSeCats  # SaitamaSeCats.py
+from CreateSentens import CreateSentens
+from OperationTweetBot import tweet
+
+def day_task():
+    AREA_LIST = ['nw', 'se']
+    for area in AREA_LIST:
+        tweet(CreateSentens(area).sentens_2())
+    pass
 
 # 実行時刻
-run_time = '12:00'
+run_time = '09:00'
 # スケジュール設定 毎日run_timeになったら
-schedule.every().day.at(run_time).do(SaitamaSeCats.py.create_catlist)
+# schedule.every().day.at(run_time).do(day_task())
+schedule.every().day.at(run_time).do(day_task)
 # スケジュールスタート
 while True:
     schedule.run_pending()
