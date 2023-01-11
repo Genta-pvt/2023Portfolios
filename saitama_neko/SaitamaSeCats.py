@@ -21,7 +21,6 @@
 # ライブラリをインポート
 import requests  # HTML取得
 import re  # 正規表現
-import datetime  # 時刻
 from bs4 import BeautifulSoup   # HTML解析
 
 
