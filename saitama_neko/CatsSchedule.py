@@ -11,12 +11,10 @@ def day_task():
     AREA_LIST = ['nw', 'se']
     for area in AREA_LIST:
         tweet(CreateSentens(area).sentens_2())
-    pass
 
 # 実行時刻
 run_time = '09:00'
 # スケジュール設定 毎日run_timeになったら
-# schedule.every().day.at(run_time).do(day_task())
 schedule.every().day.at(run_time).do(day_task)
 # スケジュールスタート
 while True:

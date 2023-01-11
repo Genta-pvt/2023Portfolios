@@ -23,8 +23,6 @@ import requests  # HTML取得
 import re  # 正規表現
 from bs4 import BeautifulSoup   # HTML解析
 
-
-
 # 例外クラス AreaCodeError SaitamaCatsの引数が不正な時に呼び出す
 class AreaCodeError(Exception):
     pass
@@ -81,7 +79,6 @@ class SaitamaCats:
             print(self.area) # テスト用出力
             return soup
 
-
     # メソッド "extract_data" データ属性"bs4_page"を解析して各猫の情報をまとめた配列を作る(今はnw限定)
     # 戻り値 : [{見出し1: 値1, 見出し2: 値2, ...}, {}, ...]
     def extract_data(self):
@@ -119,10 +116,8 @@ class SaitamaCats:
         # 戻り値
         return arr
 
-
     # 猫数え
     def count_cats(self,filter = 'all'):
-
 
         def count(value):
             i = 0
@@ -130,7 +125,6 @@ class SaitamaCats:
                 if elem.get('譲渡状況') == value:
                     i += 1
             return i
-
 
         if filter == 'all':
             self.cats_count_all = len(self.cats_arr)
@@ -144,9 +138,6 @@ class SaitamaCats:
         elif filter == 'decided':
             self.cats_count_decided = count('飼い主さんが決まりました！')
             return self.cats_count_decided
-
-
-
 
 
 

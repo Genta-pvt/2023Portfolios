@@ -3,7 +3,6 @@ import SaitamaSeCats
 import CreateSentens
 import TwCredentials
 
-
 # ツイートするクラス
 class OperationTweetBot():
     def __init__(self):
@@ -13,6 +12,7 @@ class OperationTweetBot():
                                     consumer_secret = self.credentials.consumer_secret, \
                                     access_token = self.credentials.access_token, \
                                     access_token_secret = self.credentials.access_secret)
+
 
     
 def tweet(value):

@@ -9,7 +9,6 @@ class CreateSentens(SaitamaSeCats.SaitamaCats):
         self.SENT_2 = '【{}】\n今日の埼玉県{}地区の譲渡用猫情報\n募集中          : {} 匹\nお見合い中      : {} 匹\n飼い主さん決定  : {} 匹\n{}'
         self.area_jp = self.transrate()
     
-    
     def transrate(self):
         if self.area == 'nw':
             jp = '北部・西部'
@@ -22,13 +21,11 @@ class CreateSentens(SaitamaSeCats.SaitamaCats):
         date = now.strftime("%Y/%m/%d")
         return date
 
-    
     # 文章作成1
     def sentens_1(self):
         super().count_cats()
         sent = self.SENT_1.format(self.area_jp,self.cats_count_all)
         return sent
-
 
     # 文章作成2
     def sentens_2(self):
@@ -36,6 +33,8 @@ class CreateSentens(SaitamaSeCats.SaitamaCats):
             super().count_cats(filter)
         sent = self.SENT_2.format(self.gen_date(),self.area_jp,self.cats_count_wanted,self.cats_count_interview,self.cats_count_decided,self.url)
         return sent
+
+
 
 # 単体で実行したときの処理
 if __name__ == '__main__':
