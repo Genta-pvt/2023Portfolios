@@ -1,37 +1,43 @@
-# ファイル名 : SaitamaSeCats.py
-# 機能概要 : 埼玉県の猫里親募集情報を取得して、内容をメール通知する。SeCatsSchedule.py.pyから実行される。
+"""
+ファイル名 : SaitamaSeCats.py
+■概要
+埼玉県のホームページ内の譲渡用猫情報ページ
+・https://www.pref.saitama.lg.jp/b0716/joutoseineko-n.html
+・https://www.pref.saitama.lg.jp/b0716/joutoseineko-s.html
+の内容を取り扱うモジュールです
 
-# 本プログラム内に記載されているURL
-# 「https://www.pref.saitama.lg.jp/b0716/joutoseineko-n.html」「https://www.pref.saitama.lg.jp/b0716/joutoseineko-s.html」
-# は埼玉県のホームページであり、このURL上に公開されている記事、写真、図画、その他データ類の著作権は、埼玉県、またはその情報提供者に帰属します。
-
-# 関数の説明
-# 1. create_catlist()
-#   ・引数無し
-#   ・戻り値
-#       (str)message : 実行時の日付 + 実行時に何匹里親募集状態の猫がいるか
-#   ・処理概要
-#       埼玉県南部・東部地区の里親募集情報ページを解析し配列に格納。何匹の猫が里親募集しているかを数える
-# 2. def send_mail()
-#   ・引数無し
-#   ・戻り値無し
-#   ・処理概要
-#       create_catlist()を実行し、戻り値をメールで送信する
-
+■注意
+本プログラム内に記載されているURL
+「https://www.pref.saitama.lg.jp/b0716/joutoseineko-n.html」「https://www.pref.saitama.lg.jp/b0716/joutoseineko-s.html」
+は埼玉県のホームページであり、このURL上に公開されている記事、写真、図画、その他データ類の著作権は、埼玉県、またはその情報提供者に帰属します。
+"""
 # ライブラリをインポート
 import requests  # HTML取得
 import re  # 正規表現
 from bs4 import BeautifulSoup   # HTML解析
 
-# 例外クラス AreaCodeError SaitamaCatsの引数が不正な時に呼び出す
 class AreaCodeError(Exception):
+    """
+    [例外クラス]SaitamaCatsの引数が不正な時に呼び出されます
+    """
     pass
 
 
 
-# SaitamaCats クラス 埼玉県の猫譲渡情報ページの情報をまとめる・分析するみたいな役割
 class SaitamaCats:
+    """
+    譲渡用猫ページの情報を取り扱うクラス
+    """
     def __init__(self,area):
+        """
+        処理
+            "nw"なら「北部・西部」 (https://www.pref.saitama.lg.jp/b0716/joutoseineko-n.html)
+            "se"なら「南部・東部」 (https://www.pref.saitama.lg.jp/b0716/joutoseineko-s.html)
+            の情報で初期化
+        引数
+        ・area(string)
+            "nw", "se"のいずれかの文字列を指定
+        """
         self.area = area
         self.bs4_page = self.import_page()
         self.cats_arr = self.extract_data()
@@ -40,9 +46,13 @@ class SaitamaCats:
         self.cats_count_interview = 0
         self.cats_count_decided = 0
 
-    # メソッド "import_page" 指定した区域(「北部・西部」or「南部・東部」)のbs4オブジェクトを作る
-    # 戻り値：引数に対応するWebページのbs4オブジェクト
     def import_page(self):
+        """
+        処理
+            "self.area"の値に対応するbs4オブジェクトを取得する
+        戻り値
+            "self.area"の値に対応するbs4オブジェクト
+        """
         # 定数
         NORTHWEST_SET = {'northwest', 'NorthWest', 'Northwest', 'nw', 'NW', 'north', 'North', 'n', 'N'}
         SOUTHEAST_SET = {'southeast', 'SouthEast', 'Southeast', 'se', 'SE', 'south', 'South', 's', 'S'}
@@ -79,9 +89,15 @@ class SaitamaCats:
             print(self.area) # テスト用出力
             return soup
 
-    # メソッド "extract_data" データ属性"bs4_page"を解析して各猫の情報をまとめた配列を作る(今はnw限定)
-    # 戻り値 : [{見出し1: 値1, 見出し2: 値2, ...}, {}, ...]
     def extract_data(self):
+        """
+        処理
+            "self.bs4_page"(譲渡用猫情報のbs4オブジェクト)に対して以下の処理を行う
+            ・猫の情報が記載されている<table>要素と譲渡状況(etc."お見合い中です！")を辞書形式にまとめる {見出し1: 値1, 見出し2: 値2, ...}
+            ・辞書形式に変換した<table>要素をリストに格納 [{}, {}, ...]
+        戻り値
+            (リスト) [{見出し1: 値1, 見出し2: 値2, ...}, {}, ...]
+        """
         # テーブルを登録する配列(戻り値) 
         arr = []
         # インポートしたデータからページの主となる部分を抽出
@@ -116,10 +132,34 @@ class SaitamaCats:
         # 戻り値
         return arr
 
-    # 猫数え
     def count_cats(self,filter = 'all'):
+        """
+        処理
+            引数で指定した譲渡状況の猫の数を数える
+        引数
+            ・filter(string)
+                'all', 'wanted', 'interview', 'decided' から指定。
+                ・all
+                    譲渡状況にかかわらずすべての猫をカウント(デフォルト値)
+                ・wanted
+                    譲渡状況の記載がない(飼い主募集中)の猫をカウント
+                ・interview
+                    譲渡状況が「お見合い中です」の猫をカウント
+                ・decided
+                    譲渡状況が「飼い主さんが決まりました！」の猫をカウント
+        """
 
         def count(value):
+            """
+            処理
+                self.cats_arr内にいくつ引数で指定した譲渡状況の猫がいるか数える
+            引数
+                ・value(string)
+                    譲渡状況を指定
+                    etc.('お見合い中です', '飼い主さんが決まりました！')
+            戻り値
+                引数で指定した譲渡状況の猫の数 (int)
+            """
             i = 0
             for elem in self.cats_arr:
                 if elem.get('譲渡状況') == value:

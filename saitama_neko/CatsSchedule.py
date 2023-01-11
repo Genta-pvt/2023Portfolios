@@ -1,6 +1,8 @@
-# ファイル名 : SeCatsSchedule.py.py
-# 機能概要 : 定期的にSaitamaSeCats.py.pyを実行する
-
+"""
+ファイル名 : CatsSchedule.py
+■概要
+処理を定期実行するためのモジュールです
+"""
 # ライブラリ、モジュールをインポート
 import schedule  # スケジュール
 import time  # 時刻
@@ -8,6 +10,10 @@ from CreateSentens import CreateSentens
 from OperationTweetBot import tweet
 
 def day_task():
+    """
+    処理
+        譲渡用猫情報の各ページ(北西部、南東部)の情報をまとめたツイートをする
+    """
     AREA_LIST = ['nw', 'se']
     for area in AREA_LIST:
         tweet(CreateSentens(area).sentens_2())
