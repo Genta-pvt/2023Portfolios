@@ -1,6 +1,10 @@
 # ファイル名 : SaitamaSeCats.py
 # 機能概要 : 埼玉県の猫里親募集情報を取得して、内容をメール通知する。SeCatsSchedule.py.pyから実行される。
 
+# 本プログラム内に記載されているURL
+# 「https://www.pref.saitama.lg.jp/b0716/joutoseineko-n.html」「https://www.pref.saitama.lg.jp/b0716/joutoseineko-s.html」
+# は埼玉県のホームページであり、このURL上に公開されている記事、写真、図画、その他データ類の著作権は、埼玉県、またはその情報提供者に帰属します。
+
 # 関数の説明
 # 1. create_catlist()
 #   ・引数無し

@@ -36,3 +36,10 @@ class CreateSentens(SaitamaSeCats.SaitamaCats):
             super().count_cats(filter)
         sent = self.SENT_2.format(self.gen_date(),self.area_jp,self.cats_count_wanted,self.cats_count_interview,self.cats_count_decided,self.url)
         return sent
+
+# 単体で実行したときの処理
+if __name__ == '__main__':
+    # print(CreateSentens('n').sentens_1())
+    # print(SaitamaCats('n').url)
+    print (CreateSentens('n').sentens_2())
+    pass
