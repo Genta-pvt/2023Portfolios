@@ -101,7 +101,7 @@ class SaitamaCats:
         # テーブルを登録する配列(戻り値) 
         arr = []
         # インポートしたデータからページの主となる部分を抽出
-        main_contents = self.bs4_page.find('div',attrs={"id" : "tmp_contents" })
+        main_contents = self.bs4_page.find('div',attrs={"id" : "tmp_contents"})
         # 各テーブルの情報を登録。(すべてのテーブルで繰り返し)
         for table in main_contents.find_all('table'):
             # テーブルの内容を登録する辞書を定義
