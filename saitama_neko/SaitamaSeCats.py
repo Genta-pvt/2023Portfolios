@@ -45,6 +45,7 @@ class SaitamaCats:
         self.cats_count_wanted = 0
         self.cats_count_interview = 0
         self.cats_count_decided = 0
+        self.url = None
 
     def import_page(self):
         """
