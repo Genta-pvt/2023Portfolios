@@ -1,8 +1,16 @@
 # 2023Portfolios  
 ## プログラムの説明  
 ### saitama_neko  
-埼玉県のホームページで公開されている猫の譲渡情報をスクレイピングしてtwitterで定期的に情報をツイートします。  
-Twitterアカウント：@SaitamaCatInf 「埼玉県譲渡用猫情報Bot」https://twitter.com/SaitamaCatInf  
+埼玉県のホームページで公開されている猫の譲渡情報をスクレイピングしてTwitterで定期的に情報をツイートします。  
+Twitterアカウント(非公開)：@SaitamaCatInf https://twitter.com/SaitamaCatInf  
+ツイート例：  
+~~~
+【2023/xx/xx】
+今日の埼玉県北部・西部地区の譲渡用猫情報
+募集中 : x 匹
+お見合い中 : x 匹
+飼い主さん決定 : x 匹
+~~~
 ※対象のページはこちら  
 ・[飼い主さん募集中です！（譲渡用猫情報／県北部・県西部）](https://www.pref.saitama.lg.jp/b0716/joutoseineko-n.html)  
 ・[飼い主さん募集中です！（譲渡用猫情報／県南部・県東部）](https://www.pref.saitama.lg.jp/b0716/joutoseineko-s.html)  
