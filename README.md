@@ -3,8 +3,8 @@
 ### saitama_neko  
 埼玉県のホームページで公開されている猫の譲渡情報をスクレイピングしてTwitterで定期的に情報をツイートします。  
 Twitterアカウント(非公開)：@SaitamaCatInf https://twitter.com/SaitamaCatInf  
-ツイート例：  
 ~~~
+ツイート例：
 【2023/xx/xx】
 今日の埼玉県北部・西部地区の譲渡用猫情報
 募集中 : x 匹
