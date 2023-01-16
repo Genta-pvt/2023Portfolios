@@ -28,7 +28,7 @@ class SaitamaCats:
     """
     譲渡用猫ページの情報を取り扱うクラス
     """
-    def __init__(self,area):
+    def __init__(self, area):
         """
         処理
             "nw"なら「北部・西部」 (https://www.pref.saitama.lg.jp/b0716/joutoseineko-n.html)
@@ -86,7 +86,7 @@ class SaitamaCats:
             print(e)
         # 例外発生しないとき requestsで取得したデータをbs4オブジェクトに変換
         else:
-            soup = BeautifulSoup(r.content,'html.parser')
+            soup = BeautifulSoup(r.content, 'html.parser')
             print(self.area) # テスト用出力
             return soup
 
@@ -102,7 +102,7 @@ class SaitamaCats:
         # テーブルを登録する配列(戻り値) 
         arr = []
         # インポートしたデータからページの主となる部分を抽出
-        main_contents = self.bs4_page.find('div',attrs={"id" : "tmp_contents"})
+        main_contents = self.bs4_page.find('div', attrs={"id" : "tmp_contents"})
         # 各テーブルの情報を登録。(すべてのテーブルで繰り返し)
         for table in main_contents.find_all('table'):
             # テーブルの内容を登録する辞書を定義
@@ -120,9 +120,9 @@ class SaitamaCats:
                     # セル内の文字列全体
                     whole_td = tr.contents[3].get_text(strip = True)
                     # "管理番号"のみ抽出し値とする
-                    value = re.search(r'(.\d+-.\d+)',whole_td).group(1)
+                    value = re.search(r'(.\d+-.\d+)', whole_td).group(1)
                     # "譲渡状況"を抽出、登録
-                    table_dict['譲渡状況'] = whole_td.replace(value,'')
+                    table_dict['譲渡状況'] = whole_td.replace(value, '')
                 # 値のテキスト(行内2列目セルのテキスト)
                 else:
                     value = tr.contents[3].get_text(strip = True)
@@ -133,7 +133,7 @@ class SaitamaCats:
         # 戻り値
         return arr
 
-    def count_cats(self,filter = 'all'):
+    def count_cats(self, filter = 'all'):
         """
         処理
             引数で指定した譲渡状況の猫の数を数える

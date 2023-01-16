@@ -11,7 +11,7 @@ class CreateSentens(SaitamaSeCats.SaitamaCats):
     """
     埼玉県の譲渡用猫状況ページの情報を説明する短文(Tweet用)を生成するクラス
     """
-    def __init__(self,area):
+    def __init__(self, area):
         """
         処理
             "nw"なら「北部・西部」 (https://www.pref.saitama.lg.jp/b0716/joutoseineko-n.html)
@@ -59,7 +59,7 @@ class CreateSentens(SaitamaSeCats.SaitamaCats):
             現在、埼玉県のxxx地区では... (string)
         """
         super().count_cats()
-        sent = self.SENT_1.format(self.area_jp,self.cats_count_all)
+        sent = self.SENT_1.format(self.area_jp, self.cats_count_all)
         return sent
 
     # 文章作成2
@@ -78,7 +78,7 @@ class CreateSentens(SaitamaSeCats.SaitamaCats):
         """
         for filter in ['wanted', 'interview', 'decided']:
             super().count_cats(filter)
-        sent = self.SENT_2.format(self.gen_date(),self.area_jp,self.cats_count_wanted,self.cats_count_interview,self.cats_count_decided,self.url)
+        sent = self.SENT_2.format(self.gen_date(), self.area_jp, self.cats_count_wanted, self.cats_count_interview, self.cats_count_decided, self.url)
         return sent
 
 
