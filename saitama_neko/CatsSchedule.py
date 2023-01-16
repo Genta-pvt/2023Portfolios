@@ -9,6 +9,7 @@ import time  # 時刻
 from CreateSentens import CreateSentens
 from OperationTweetBot import tweet
 
+
 def day_task():
     """
     処理
@@ -17,6 +18,7 @@ def day_task():
     AREA_LIST = ['nw', 'se']
     for area in AREA_LIST:
         tweet(CreateSentens(area).sentens_2())
+
 
 # 実行時刻
 run_time = '09:00'

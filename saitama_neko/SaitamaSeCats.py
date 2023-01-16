@@ -14,7 +14,8 @@
 # ライブラリをインポート
 import requests  # HTML取得
 import re  # 正規表現
-from bs4 import BeautifulSoup   # HTML解析
+from bs4 import BeautifulSoup  # HTML解析
+
 
 class AreaCodeError(Exception):
     """
@@ -23,11 +24,11 @@ class AreaCodeError(Exception):
     pass
 
 
-
 class SaitamaCats:
     """
     譲渡用猫ページの情報を取り扱うクラス
     """
+
     def __init__(self, area):
         """
         処理
@@ -58,7 +59,7 @@ class SaitamaCats:
         NORTHWEST_SET = {'northwest', 'NorthWest', 'Northwest', 'nw', 'NW', 'north', 'North', 'n', 'N'}
         SOUTHEAST_SET = {'southeast', 'SouthEast', 'Southeast', 'se', 'SE', 'south', 'South', 's', 'S'}
         URL_NW = 'https://www.pref.saitama.lg.jp/b0716/joutoseineko-n.html'
-        URL_SE= 'https://www.pref.saitama.lg.jp/b0716/joutoseineko-s.html'
+        URL_SE = 'https://www.pref.saitama.lg.jp/b0716/joutoseineko-s.html'
 
         # URLからbs4オブジェクトを作成(SaitamaCats.areaも設定)
         try:
@@ -82,12 +83,12 @@ class SaitamaCats:
             else:
                 raise AreaCodeError('Please enter a valid value. Example : nw, se.')
         # 例外処理
-        except AreaCodeError as e :
+        except AreaCodeError as e:
             print(e)
         # 例外発生しないとき requestsで取得したデータをbs4オブジェクトに変換
         else:
             soup = BeautifulSoup(r.content, 'html.parser')
-            print(self.area) # テスト用出力
+            print(self.area)  # テスト用出力
             return soup
 
     def extract_data(self):
@@ -102,38 +103,38 @@ class SaitamaCats:
         # テーブルを登録する配列(戻り値) 
         arr = []
         # インポートしたデータからページの主となる部分を抽出
-        main_contents = self.bs4_page.find('div', attrs={"id" : "tmp_contents"})
+        main_contents = self.bs4_page.find('div', attrs={"id": "tmp_contents"})
         # 各テーブルの情報を登録。(すべてのテーブルで繰り返し)
         for table in main_contents.find_all('table'):
             # テーブルの内容を登録する辞書を定義
             table_dict = {}
             # 譲渡状況を登録(nw限定) 
             if self.area == 'nw':
-                table_dict['譲渡状況'] = table.previous_sibling.previous_sibling.get_text(strip = True)
+                table_dict['譲渡状況'] = table.previous_sibling.previous_sibling.get_text(strip=True)
             # 各行の見出しと値をそれぞれ登録（すべての行で繰り返し)
             for tr in table.find_all('tr'):
                 # 見出しのテキスト(行内1列目セルのテキスト)
-                key = tr.contents[1].get_text(strip = True)
+                key = tr.contents[1].get_text(strip=True)
                 # 値のテキスト(行内2列目セルのテキスト)
                 # (se限定)"管理番号"行の時(セル内に"管理番号", "譲渡状況"が含まれている)
                 if self.area == 'se' and key == '管理番号':
                     # セル内の文字列全体
-                    whole_td = tr.contents[3].get_text(strip = True)
+                    whole_td = tr.contents[3].get_text(strip=True)
                     # "管理番号"のみ抽出し値とする
                     value = re.search(r'(.\d+-.\d+)', whole_td).group(1)
                     # "譲渡状況"を抽出、登録
                     table_dict['譲渡状況'] = whole_td.replace(value, '')
                 # 値のテキスト(行内2列目セルのテキスト)
                 else:
-                    value = tr.contents[3].get_text(strip = True)
+                    value = tr.contents[3].get_text(strip=True)
                 # 見出し: 値で登録
-                table_dict[key] = value                
-            # テーブル → 辞書としたものを配列に登録
+                table_dict[key] = value
+                # テーブル → 辞書としたものを配列に登録
             arr.append(table_dict)
         # 戻り値
         return arr
 
-    def count_cats(self, filter = 'all'):
+    def count_cats(self, filter='all'):
         """
         処理
             引数で指定した譲渡状況の猫の数を数える
@@ -179,7 +180,6 @@ class SaitamaCats:
         elif filter == 'decided':
             self.cats_count_decided = count('飼い主さんが決まりました！')
             return self.cats_count_decided
-
 
 
 # 単体で実行したときの処理

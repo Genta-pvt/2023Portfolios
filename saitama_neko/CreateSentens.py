@@ -6,11 +6,13 @@
 import SaitamaSeCats
 from datetime import datetime
 
+
 # 文章作成クラス
 class CreateSentens(SaitamaSeCats.SaitamaCats):
     """
     埼玉県の譲渡用猫状況ページの情報を説明する短文(Tweet用)を生成するクラス
     """
+
     def __init__(self, area):
         """
         処理
@@ -25,7 +27,7 @@ class CreateSentens(SaitamaSeCats.SaitamaCats):
         self.SENT_1 = '現在、埼玉県の{}地区では{}匹の猫が飼い主を募集しています'
         self.SENT_2 = '【{}】\n今日の埼玉県{}地区の譲渡用猫情報\n募集中          : {} 匹\nお見合い中      : {} 匹\n飼い主さん決定  : {} 匹\n{}'
         self.area_jp = self.transrate()
-    
+
     def transrate(self):
         """
         処理
@@ -78,14 +80,14 @@ class CreateSentens(SaitamaSeCats.SaitamaCats):
         """
         for filter in ['wanted', 'interview', 'decided']:
             super().count_cats(filter)
-        sent = self.SENT_2.format(self.gen_date(), self.area_jp, self.cats_count_wanted, self.cats_count_interview, self.cats_count_decided, self.url)
+        sent = self.SENT_2.format(self.gen_date(), self.area_jp, self.cats_count_wanted, self.cats_count_interview,
+                                  self.cats_count_decided, self.url)
         return sent
-
 
 
 # 単体で実行したときの処理
 if __name__ == '__main__':
     # print(CreateSentens('n').sentens_1())
     # print(SaitamaCats('n').url)
-    print (CreateSentens('n').sentens_2())
+    print(CreateSentens('n').sentens_2())
     pass
