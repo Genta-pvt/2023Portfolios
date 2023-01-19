@@ -20,11 +20,11 @@ class OperationTweetBot:
             外部からインポートした認証情報を利用してTwitterクライアントを初期化
         """
         self.credentials = TwittetAPICredentials.SaitamaCatInf()
-        self.client = tweepy.Client(bearer_token=self.credentials.bearer_token,
-                                    consumer_key=self.credentials.consumer_key,
-                                    consumer_secret=self.credentials.consumer_secret,
-                                    access_token=self.credentials.access_token,
-                                    access_token_secret=self.credentials.access_secret)
+        self.client = tweepy.Client(bearer_token=self.credentials.cre_dict['bearer_token'],
+                                    consumer_key=self.credentials.cre_dict['consumer_key'],
+                                    consumer_secret=self.credentials.cre_dict['consumer_secret'],
+                                    access_token=self.credentials.cre_dict['access_token'],
+                                    access_token_secret=self.credentials.cre_dict['access_secret'])
 
 
 def tweet(value):
