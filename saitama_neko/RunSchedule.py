@@ -1,5 +1,5 @@
 """
-ファイル名 : CatsSchedule.py
+ファイル名 : RunSchedule.py
 ■概要
 処理を定期実行するためのモジュールです
 """
@@ -15,8 +15,8 @@ def day_task():
     処理
         譲渡用猫情報の各ページ(北西部、南東部)の情報をまとめたツイートをする
     """
-    AREA_LIST = ['nw', 'se']
-    for area in AREA_LIST:
+    area_list = ['nw', 'se']
+    for area in area_list:
         tweet(CreateSentens(area).sentens_2())
 
 

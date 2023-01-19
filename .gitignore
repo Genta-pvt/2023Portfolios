@@ -4,6 +4,7 @@
 /saitama_neko/Trash.py
 # 秘密
 /saitama_neko/Credentials
+/saitama_neko/Credentials.csv
 # ゴミ置き場
 /saitama_neko/Trash
 # pycache
