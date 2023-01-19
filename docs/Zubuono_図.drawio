@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2023-01-19T12:05:08.859Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36" etag="OkCMocM1kMH_9moAMT-g" version="20.8.5" type="github">
+<mxfile host="app.diagrams.net" modified="2023-01-19T12:18:19.687Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36" etag="H1RWxa8vQ7gf1Iotx0xX" version="20.8.5" type="github">
   <diagram id="MVS7Sov56wNt7uP_zCHd" name="ページ1">
     <mxGraphModel dx="980" dy="599" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
@@ -12,6 +12,9 @@
         </mxCell>
         <mxCell id="GLY2J1otzuvY5cMvDXlM-94" value="" style="group" vertex="1" connectable="0" parent="1">
           <mxGeometry x="59" y="170" width="710" height="303" as="geometry" />
+        </mxCell>
+        <mxCell id="GLY2J1otzuvY5cMvDXlM-99" value="" style="rounded=0;whiteSpace=wrap;html=1;pointerEvents=0;fontFamily=Helvetica;fontSize=12;fontColor=default;fillColor=none;gradientColor=none;strokeColor=#8A8A8A;" vertex="1" parent="GLY2J1otzuvY5cMvDXlM-94">
+          <mxGeometry x="111" y="110" width="299" height="140" as="geometry" />
         </mxCell>
         <mxCell id="GLY2J1otzuvY5cMvDXlM-69" value="" style="group" vertex="1" connectable="0" parent="GLY2J1otzuvY5cMvDXlM-94">
           <mxGeometry x="320" width="80" height="110" as="geometry" />
@@ -123,6 +126,12 @@
         </mxCell>
         <mxCell id="GLY2J1otzuvY5cMvDXlM-92" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;exitPerimeter=0;fontFamily=Helvetica;fontSize=12;fontColor=default;startArrow=none;startFill=0;endArrow=none;endFill=0;" edge="1" parent="GLY2J1otzuvY5cMvDXlM-94" source="GLY2J1otzuvY5cMvDXlM-11" target="GLY2J1otzuvY5cMvDXlM-12">
           <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="GLY2J1otzuvY5cMvDXlM-98" value="JavaScriptによって&lt;br&gt;レシピデータの送信・取得のAPIリクエストを送信" style="text;html=1;align=left;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="GLY2J1otzuvY5cMvDXlM-94">
+          <mxGeometry x="111" y="105" width="290" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="GLY2J1otzuvY5cMvDXlM-100" value="" style="rounded=0;whiteSpace=wrap;html=1;pointerEvents=0;fontFamily=Helvetica;fontSize=12;fontColor=default;fillColor=none;gradientColor=none;strokeColor=#8A8A8A;" vertex="1" parent="GLY2J1otzuvY5cMvDXlM-94">
+          <mxGeometry x="417" y="110" width="200" height="190" as="geometry" />
         </mxCell>
         <mxCell id="GLY2J1otzuvY5cMvDXlM-23" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#232F3D;strokeColor=none;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=12;fontStyle=0;pointerEvents=1;shape=mxgraph.aws4.internet;aspect=fixed;" vertex="1" parent="1">
           <mxGeometry x="85" y="60" width="66.67" height="50" as="geometry" />
