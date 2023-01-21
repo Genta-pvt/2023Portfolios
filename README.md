@@ -4,6 +4,9 @@
 #### 概要  
 埼玉県のホームページで公開されている猫の譲渡情報をスクレイピングしてTwitterで定期的に情報をツイートします。  
 Twitterアカウント(非公開)：@SaitamaCatInf https://twitter.com/SaitamaCatInf  
+
+公開設定されたTwitterアカウントでの稼働に関しては、埼玉県のHPにおける"著作権、リンク等の規約"を満たさないため控えておりますが、
+私的利用の範囲(非公開アカウント)にて稼働テスト済みです。
 ~~~
 ツイート例：
 【2023/xx/xx】
@@ -16,6 +19,10 @@ Twitterアカウント(非公開)：@SaitamaCatInf https://twitter.com/SaitamaCa
 ・[飼い主さん募集中です！（譲渡用猫情報／県北部・県西部）](https://www.pref.saitama.lg.jp/b0716/joutoseineko-n.html)  
 ・[飼い主さん募集中です！（譲渡用猫情報／県南部・県東部）](https://www.pref.saitama.lg.jp/b0716/joutoseineko-s.html)  
 #### 使い方  
+《注意》  
+ご利用の際は、Twitterアカウントを非公開にする等、私的利用の範囲に限ってのご利用をお願いいたします。  
+公開アカウントで実行した場合に起こった全てのことに関しては、責任を負いかねます。  
+
 《前提条件》
 1. PythonがPCにインストールされている
 2. [Twitter Developer サイト](https://developer.twitter.com)からTwitterAPIを取得している
@@ -30,7 +37,7 @@ Twitterアカウント(非公開)：@SaitamaCatInf https://twitter.com/SaitamaCa
 《実行手順》
 1. RunSchedule.pyを実行  
 2. 「Do you want to run a test tweet? (y/n)」と聞かれるので"y"を入力しEnterキー押下。
-3. 「Please enter your key information」と聞かれるので順番に準備したキー情報を入力し、Enterキー押下。  
+3. 「Please enter your key information」と聞かれるので順番に《前提条件》で準備したキー情報を入力し、Enterキー押下。  
    (成功していれば「Successfully tweeted!」が表示され、対象のアカウントでツイートが投稿される)
 4. 「Runtime? [hh:mm] : 」と聞かれるので毎日の実行時間を"hh:mm"の形式で入力し、Enter押下。
 5. 「Schedule in progress...」が表示され、スケジュール実行中となる。  
