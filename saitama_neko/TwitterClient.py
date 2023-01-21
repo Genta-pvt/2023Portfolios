@@ -18,7 +18,7 @@ class TwitterClient:
         処理
             認証情報を初期化
         """
-        credentials = TwittetAPICredentials.SaitamaCatInf()
+        credentials = TwitterAPICredentials.SaitamaCatInf()
         self.bearer_token = credentials.cre_dict['bearer_token']
         self.consumer_key = credentials.cre_dict['consumer_key']
         self.consumer_secret = credentials.cre_dict['consumer_secret']
@@ -65,7 +65,7 @@ Execution date : {}
             print('===========================')
             y_n = input('Twitter client authentication failed.\nReset credential information? (y/n)')
             if y_n == 'y':
-                credentials = TwittetAPICredentials.SaitamaCatInf()
+                credentials = TwitterAPICredentials.SaitamaCatInf()
                 credentials.write_csv()
         else:
             print('Successfully tweeted!')
