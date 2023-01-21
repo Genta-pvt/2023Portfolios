@@ -1,5 +1,5 @@
 """
-ファイル名 : CreateSentens.py
+ファイル名 : CreateSentence.py
 ■概要
 埼玉県の譲渡用猫状況ページの情報を説明する短文(Tweet用)を生成するためのモジュールです。
 """
@@ -8,7 +8,7 @@ from datetime import datetime
 
 
 # 文章作成クラス
-class CreateSentens(SaitamaSeCats.SaitamaCats):
+class CreateSentence(SaitamaSeCats.SaitamaCats):
     """
     埼玉県の譲渡用猫状況ページの情報を説明する短文(Tweet用)を生成するクラス
     """
@@ -26,9 +26,10 @@ class CreateSentens(SaitamaSeCats.SaitamaCats):
         super().__init__(area)
         self.SENT_1 = '現在、埼玉県の{}地区では{}匹の猫が飼い主を募集しています'
         self.SENT_2 = '【{}】\n今日の埼玉県{}地区の譲渡用猫情報\n募集中          : {} 匹\nお見合い中      : {} 匹\n飼い主さん決定  : {} 匹\n{}'
-        self.area_jp = self.transrate()
+        self.area_jp = self.translate()
+        self.url = '※ここにURLが載ります※'
 
-    def transrate(self):
+    def translate(self):
         """
         処理
             "self.area"の値を日本語に翻訳
@@ -53,7 +54,7 @@ class CreateSentens(SaitamaSeCats.SaitamaCats):
         return date
 
     # 文章作成1
-    def sentens_1(self):
+    def sentence_1(self):
         """
         処理
             "self.SENT_1"を"SaitamaCats"クラスのデータ属性を利用してフォーマット
@@ -65,7 +66,7 @@ class CreateSentens(SaitamaSeCats.SaitamaCats):
         return sent
 
     # 文章作成2
-    def sentens_2(self):
+    def sentence_2(self):
         """
         処理
             "self.SENT_2"を"SaitamaCats"クラスのデータ属性を利用してフォーマット
@@ -89,5 +90,5 @@ class CreateSentens(SaitamaSeCats.SaitamaCats):
 if __name__ == '__main__':
     # print(CreateSentens('n').sentens_1())
     # print(SaitamaCats('n').url)
-    print(CreateSentens('n').sentens_2())
+    print(CreateSentence('n').sentence_2())
     pass

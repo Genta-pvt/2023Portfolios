@@ -7,7 +7,7 @@
 import schedule  # スケジュール
 import time  # 時刻
 import TwitterClient
-from CreateSentens import CreateSentens
+from CreateSentence import CreateSentence
 
 
 def day_task():
@@ -17,7 +17,7 @@ def day_task():
     """
     area_list = ['nw', 'se']
     for area in area_list:
-        TwitterClient.tweet(CreateSentens(area).sentens_2())
+        TwitterClient.tweet(CreateSentence(area).sentence_2())
 
 
 def start_schedule(run_time='09:00'):
