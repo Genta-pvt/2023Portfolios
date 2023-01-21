@@ -4,7 +4,7 @@
 TwitterAPIを利用してツイートするモジュールです。
 """
 import tweepy
-import TwittetAPICredentials
+import TwitterAPICredentials
 from datetime import datetime
 
 
