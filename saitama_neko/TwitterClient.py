@@ -31,7 +31,6 @@ class TwitterClient:
                                consumer_secret=self.consumer_secret,
                                access_token=self.access_token,
                                access_token_secret=self.access_token_secret)
-        client.create_tweet(text='hogehuga')
         return client
 
 
@@ -56,9 +55,17 @@ Execution date : {}
     now_str = datetime.now().strftime('%Y/%m/%d %H:%M:%S')
     y_n = input('Do you want to run a test tweet? (y/n)')
     if y_n == 'y':
-        pass
-        tw_client = TwitterClient().set_client()
-        # tw_client.create_tweet(text=tw_body.format(now_str))
+        try:
+            tw_client = TwitterClient().set_client()
+            tw_client.create_tweet(text=tw_body.format(now_str))
+        except (tweepy.errors.Unauthorized, tweepy.errors.Forbidden) as e:
+            print('====[Twitter API Error]====')
+            print(e)
+            print('===========================')
+            y_n = input('Twitter client authentication failed.\nReset credential information? (y/n)')
+            if y_n == 'y':
+                credentials = TwittetAPICredentials.SaitamaCatInf()
+                credentials.write_csv()
 
 
 # 単体で実行したときの処理
