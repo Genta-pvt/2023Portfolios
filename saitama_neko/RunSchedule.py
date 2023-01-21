@@ -7,7 +7,7 @@
 import schedule  # スケジュール
 import time  # 時刻
 from CreateSentens import CreateSentens
-from OperationTweetBot import tweet
+from TwitterClient import tweet
 
 
 def day_task():

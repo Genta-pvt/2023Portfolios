@@ -6,7 +6,7 @@
 /saitama_neko/Credentials*
 /saitama_neko/Credentials.csv
 # ゴミ置き場
-/saitama_neko/Trash
+/Local/Trash
 # pycache
 /saitama_neko/__pycache__
 # 認証情報登録モジュール
