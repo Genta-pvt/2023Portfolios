@@ -1,6 +1,7 @@
 # 2023Portfolios  
 ## プログラムの説明  
 ### saitama_neko  
+#### 概要  
 埼玉県のホームページで公開されている猫の譲渡情報をスクレイピングしてTwitterで定期的に情報をツイートします。  
 Twitterアカウント(非公開)：@SaitamaCatInf https://twitter.com/SaitamaCatInf  
 ~~~
@@ -14,6 +15,26 @@ Twitterアカウント(非公開)：@SaitamaCatInf https://twitter.com/SaitamaCa
 ※対象のページはこちら  
 ・[飼い主さん募集中です！（譲渡用猫情報／県北部・県西部）](https://www.pref.saitama.lg.jp/b0716/joutoseineko-n.html)  
 ・[飼い主さん募集中です！（譲渡用猫情報／県南部・県東部）](https://www.pref.saitama.lg.jp/b0716/joutoseineko-s.html)  
+#### 使い方  
+《前提条件》
+1. PythonがPCにインストールされている
+2. [Twitter Developer サイト](https://developer.twitter.com)からTwitterAPIを取得している
+   ~~~
+   ・bearer_token
+   ・consumer_key
+   ・consumer_secret
+   ・access_token
+   ・access_token_secret
+   ~~~  
+#### 
+《実行手順》
+1. RunSchedule.pyを実行  
+2. 「Do you want to run a test tweet? (y/n)」と聞かれるので"y"を入力しEnterキー押下。
+3. 「Please enter your key information」と聞かれるので順番に準備したキー情報を入力し、Enterキー押下。  
+   (成功していれば「Successfully tweeted!」が表示され、対象のアカウントでツイートが投稿される)
+4. 「Runtime? [hh:mm] : 」と聞かれるので毎日の実行時間を"hh:mm"の形式で入力し、Enter押下。
+5. 「Schedule in progress...」が表示され、スケジュール実行中となる。  
+※項番3, 4は2回目以降不要になります。
 ## 使用言語
 - Python
     - バージョン
