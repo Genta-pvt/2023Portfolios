@@ -6,8 +6,8 @@
 # ライブラリ、モジュールをインポート
 import schedule  # スケジュール
 import time  # 時刻
+import TwitterClient
 from CreateSentens import CreateSentens
-from TwitterClient import tweet
 
 
 def day_task():
@@ -17,14 +17,19 @@ def day_task():
     """
     area_list = ['nw', 'se']
     for area in area_list:
-        tweet(CreateSentens(area).sentens_2())
+        TwitterClient.tweet(CreateSentens(area).sentens_2())
 
 
-# 実行時刻
-run_time = '09:00'
-# スケジュール設定 毎日run_timeになったら
-schedule.every().day.at(run_time).do(day_task)
-# スケジュールスタート
-while True:
-    schedule.run_pending()
-    time.sleep(30)
+def start_schedule(run_time='09:00'):
+    schedule.every().day.at(run_time).do(day_task)
+    print('')
+    # スケジュールスタート
+    while True:
+        schedule.run_pending()
+        print('Schedule in progress...')
+        time.sleep(30)
+
+
+TwitterClient.test_tweet()
+input_time = input('Runtime? [hh:mm] : ')
+start_schedule(input_time)

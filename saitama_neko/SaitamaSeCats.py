@@ -184,6 +184,7 @@ class SaitamaCats:
 
 # 単体で実行したときの処理
 if __name__ == '__main__':
+    SaitamaCats('s')
     # print(CreateSentens('n').sentens_1())
     # print(SaitamaCats('n').url)
     # print (CreateSentens('n').sentens_2())

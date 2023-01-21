@@ -45,6 +45,7 @@ def tweet(value):
     # OperationTweetBot.client.create_tweet(text = value)
     sci_client = TwitterClient().set_client()
     sci_client.create_tweet(text=value)
+    print('Tweeted.')
 
 
 def test_tweet():
@@ -66,6 +67,8 @@ Execution date : {}
             if y_n == 'y':
                 credentials = TwittetAPICredentials.SaitamaCatInf()
                 credentials.write_csv()
+        else:
+            print('Successfully tweeted!')
 
 
 # 単体で実行したときの処理
