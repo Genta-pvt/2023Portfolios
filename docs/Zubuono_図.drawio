@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2023-01-23T13:40:18.184Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36" etag="2rdmneERoZC2D6hwRv7b" version="20.8.10" type="github">
+<mxfile host="app.diagrams.net" modified="2023-01-23T13:42:18.914Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36" etag="FEJJgkWPXwFxZQG-RccY" version="20.8.10" type="github">
   <diagram id="MVS7Sov56wNt7uP_zCHd" name="ページ1">
     <mxGraphModel dx="965" dy="748" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
@@ -36,7 +36,7 @@
           <mxGeometry x="292" y="120" width="50" height="30" as="geometry" />
         </mxCell>
         <mxCell id="GLY2J1otzuvY5cMvDXlM-99" value="" style="rounded=0;whiteSpace=wrap;html=1;pointerEvents=0;fontFamily=Helvetica;fontSize=12;fillColor=#dae8fc;strokeColor=#6c8ebf;" parent="1" vertex="1">
-          <mxGeometry x="170" y="270" width="299" height="150" as="geometry" />
+          <mxGeometry x="160" y="270" width="309" height="150" as="geometry" />
         </mxCell>
         <mxCell id="GLY2J1otzuvY5cMvDXlM-69" value="" style="group;aspect=fixed;" parent="1" vertex="1" connectable="0">
           <mxGeometry x="379" y="170" width="70" height="96.25" as="geometry" />
@@ -150,10 +150,10 @@
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="GLY2J1otzuvY5cMvDXlM-98" value="JavaScript, API Gatewayによって&lt;br&gt;レシピデータの送信・取得のAPIリクエストを送受信" style="text;html=1;align=left;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontColor=#0000b3;fontStyle=1" parent="1" vertex="1">
-          <mxGeometry x="177" y="270" width="310" height="40" as="geometry" />
+          <mxGeometry x="172" y="270" width="310" height="40" as="geometry" />
         </mxCell>
         <mxCell id="GLY2J1otzuvY5cMvDXlM-101" value="Python boto3を使用し、&lt;br&gt;DBにレシピデータを登録、参照" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;pointerEvents=0;fontFamily=Helvetica;fontSize=12;strokeColor=none;glass=0;shadow=0;perimeterSpacing=0;fontColor=#000099;fontStyle=1;labelBackgroundColor=none;labelBorderColor=none;" parent="1" vertex="1">
-          <mxGeometry x="595" y="407" width="180" height="44" as="geometry" />
+          <mxGeometry x="593" y="407" width="180" height="44" as="geometry" />
         </mxCell>
         <mxCell id="ork7bOeJizjLwCLWew_e-9" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;startArrow=classic;startFill=1;endArrow=none;endFill=0;" parent="1" source="pB6hc15Ms-hx5nb12YbC-2" target="ork7bOeJizjLwCLWew_e-7" edge="1">
           <mxGeometry relative="1" as="geometry" />
@@ -226,7 +226,7 @@
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="v6x9pFRK_hntMtRKBf6H-23" value="GitHub, GitHub Action による&lt;br&gt;リモートリポジトリからの自動デプロイ" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;pointerEvents=0;fontFamily=Helvetica;fontSize=12;strokeColor=none;glass=0;shadow=0;perimeterSpacing=0;fontColor=#000099;fontStyle=1;labelBackgroundColor=none;labelBorderColor=none;" vertex="1" parent="1">
-          <mxGeometry x="556" y="569" width="224" height="44" as="geometry" />
+          <mxGeometry x="554" y="569" width="224" height="44" as="geometry" />
         </mxCell>
         <mxCell id="v6x9pFRK_hntMtRKBf6H-28" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=0;exitDx=0;exitDy=0;exitPerimeter=0;fontFamily=Helvetica;fontSize=12;fontColor=default;startArrow=classic;startFill=1;endArrow=none;endFill=1;" edge="1" parent="1" source="pIJLpY-syUnc8e8MSlYs-11" target="v6x9pFRK_hntMtRKBf6H-27">
           <mxGeometry relative="1" as="geometry">
