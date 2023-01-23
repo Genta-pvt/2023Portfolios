@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2023-01-23T13:32:47.366Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36" etag="msJ0ylvuYgzMqyKcsGIu" version="20.8.10" type="github">
+<mxfile host="app.diagrams.net" modified="2023-01-23T13:40:18.184Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36" etag="2rdmneERoZC2D6hwRv7b" version="20.8.10" type="github">
   <diagram id="MVS7Sov56wNt7uP_zCHd" name="ページ1">
     <mxGraphModel dx="965" dy="748" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
@@ -150,10 +150,10 @@
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="GLY2J1otzuvY5cMvDXlM-98" value="JavaScript, API Gatewayによって&lt;br&gt;レシピデータの送信・取得のAPIリクエストを送受信" style="text;html=1;align=left;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontColor=#0000b3;fontStyle=1" parent="1" vertex="1">
-          <mxGeometry x="170" y="268" width="310" height="40" as="geometry" />
+          <mxGeometry x="177" y="270" width="310" height="40" as="geometry" />
         </mxCell>
         <mxCell id="GLY2J1otzuvY5cMvDXlM-101" value="Python boto3を使用し、&lt;br&gt;DBにレシピデータを登録、参照" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;pointerEvents=0;fontFamily=Helvetica;fontSize=12;strokeColor=none;glass=0;shadow=0;perimeterSpacing=0;fontColor=#000099;fontStyle=1;labelBackgroundColor=none;labelBorderColor=none;" parent="1" vertex="1">
-          <mxGeometry x="595" y="417" width="180" height="44" as="geometry" />
+          <mxGeometry x="595" y="407" width="180" height="44" as="geometry" />
         </mxCell>
         <mxCell id="ork7bOeJizjLwCLWew_e-9" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;startArrow=classic;startFill=1;endArrow=none;endFill=0;" parent="1" source="pB6hc15Ms-hx5nb12YbC-2" target="ork7bOeJizjLwCLWew_e-7" edge="1">
           <mxGeometry relative="1" as="geometry" />
